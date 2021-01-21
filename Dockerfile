@@ -9,6 +9,7 @@ FROM scratch
 LABEL org.opencontainers.image.source=https://github.com/kronostechnologies/kube-version-viewer
 
 COPY --from=builder /go/src/github.com/kronostechnologies/kube-version-viewer/version-viewer /bin/
+COPY --from=builder /tmp/passwd /etc/passwd
 
 USER nobody
 
