@@ -1,7 +1,8 @@
 FROM golang:1.15 AS builder
+RUN apt update ; apt install upx-ucl -y ; apt clean
 WORKDIR /go/src/github.com/kronostechnologies/kube-version-viewer/
 COPY * ./
-RUN CGO_ENABLED=0 go build -ldflags="-w -s" -o version-viewer .
+RUN CGO_ENABLED=0 go build -ldflags="-w -s" -o version-viewer . && upx --best version-viewer
 RUN echo "nobody:x:65534:65534:nobody:/nonexistent:" > /tmp/passwd
 
 FROM scratch
