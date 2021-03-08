@@ -52,9 +52,8 @@ func main() {
 	setupKubernetesClient()
 
 	if *serve {
-		httpServe(":8080")
+		createServer(":8080")
 	} else {
 		printVersions()
 	}
 }
-

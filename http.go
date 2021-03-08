@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"html/template"
 	"net/http"
 )
@@ -42,10 +41,17 @@ func getHtmlTemplate() *template.Template {
 }
 
 func httpHealthHandler(w http.ResponseWriter, _ *http.Request) {
+
+	w.Header().Set("Access-Control-Allow-Headers", "accept, content-type")
+	w.Header().Set("Access-Control-Allow-Methods", "POST")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+
 	w.WriteHeader(http.StatusOK)
 }
 
-func httpVersionHandlerFactory(t *template.Template) func(w http.ResponseWriter, r *http.Request) {
+func httpVersionHandlerFactory() func(w http.ResponseWriter, r *http.Request) {
+	t := getHtmlTemplate()
+
 	return func(w http.ResponseWriter, r *http.Request) {
 		versions, debug := getDeploymentVersions()
 		err := t.Execute(w, map[string]interface{}{
@@ -56,17 +62,5 @@ func httpVersionHandlerFactory(t *template.Template) func(w http.ResponseWriter,
 		if err != nil {
 			panic(err.Error())
 		}
-	}
-}
-
-func httpServe(listen string) {
-	t := getHtmlTemplate()
-
-	http.HandleFunc("/health", httpHealthHandler)
-	http.HandleFunc("/versions", httpVersionHandlerFactory(t))
-	fmt.Printf("Listening on %s\n", listen)
-	err := http.ListenAndServe(listen, nil)
-	if err != nil {
-		panic(err.Error())
 	}
 }
