@@ -1,6 +1,6 @@
 module github.com/kronostechnologies/kube-version-viewer
 
-go 1.15
+go 1.16
 
 require (
 	k8s.io/apimachinery v0.19.2
