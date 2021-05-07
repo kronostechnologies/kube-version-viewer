@@ -1,4 +1,4 @@
-name: Docker
+name: Docker Publish
 
 on:
   push:
@@ -13,7 +13,6 @@ jobs:
         name: build info
         run:
           echo ::set-output name=tags::ghcr.io/${{ github.repository }}:${GITHUB_REF#refs/tags/},ghcr.io/${{ github.repository }}:latest
-
       - name: setup qemu
         uses: docker/setup-qemu-action@v1
       - name: setup buildx
