@@ -1,6 +1,9 @@
 name: docker scan
 
 on:
+  push:
+    branches:
+      - main
   schedule:
     - cron: "12 13 * * 1"
 
