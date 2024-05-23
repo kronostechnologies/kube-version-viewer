@@ -22,6 +22,7 @@ func createServer(listen string) {
 	http.HandleFunc("/query", corsHandler(grafanaQueryHandler))
 	http.HandleFunc("/search", corsHandler(grafanaSearchHandler))
 	http.HandleFunc("/annotations", corsHandler(grafanaAnnotationHandler))
+	http.HandleFunc("/fullVersions", corsHandler(grafanaFullVersionHandler))
 	fmt.Printf("Listening on %s\n", listen)
 	err := http.ListenAndServe(listen, nil)
 	if err != nil {
