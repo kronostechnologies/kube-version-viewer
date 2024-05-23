@@ -67,3 +67,18 @@ func grafanaAnnotationHandler(w http.ResponseWriter, _ *http.Request) {
 		panic(err.Error())
 	}
 }
+
+func grafanaFullVersionHandler(w http.ResponseWriter, _ *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
+	versions, _ := getDeploymentVersions()
+
+	jsonResponse, je := json.Marshal(versions)
+	if je != nil {
+		panic(je.Error())
+	}
+
+	if _, we := w.Write(jsonResponse); we != nil {
+		panic(we.Error())
+	}
+}
