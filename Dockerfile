@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM golang:1.22 AS builder
+FROM golang:1.22 AS builder
 RUN echo "nobody:x:65534:65534:nobody:/:" > /tmp/passwd
 
 WORKDIR /go/src/github.com/kronostechnologies/kube-version-viewer/
